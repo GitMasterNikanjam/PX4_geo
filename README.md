@@ -99,7 +99,14 @@ printf("Local position: N=%.1f m, E=%.1f m\n", north, east);
 ## Building
 
 When used inside PX4, simply add `geo.cpp` to your module’s source list.  
-For standalone projects, copy `geo.h` and `geo.cpp` and provide compatible `mathlib` and `matrix` headers (or replace with standard math functions).
+For standalone projects, this repository provides a CMake target that uses the extracted `PX4_mathlib` and `PX4_matrix` libraries. By default, all three repositories are expected to be sibling directories:
+
+```powershell
+cmake -S PX4_geo -B build/PX4_geo
+cmake --build build/PX4_geo
+```
+
+If either dependency is elsewhere, set `PX4_GEO_MATHLIB_DIR` or `PX4_GEO_MATRIX_DIR` during configuration. Consumers can link the library as `PX4::geo`.
 
 ## References
 

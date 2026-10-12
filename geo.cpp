@@ -49,6 +49,12 @@
 using matrix::wrap_pi;
 using matrix::wrap_2pi;
 
+namespace
+{
+constexpr float kPiF = 3.14159265358979323846f;
+constexpr float kHalfPiF = kPiF / 2.f;
+}
+
 /*
  * Azimuthal Equidistant Projection
  * formulas according to: http://mathworld.wolfram.com/AzimuthalEquidistantProjection.html
@@ -239,7 +245,7 @@ int get_distance_to_line(struct crosstrack_error_s &crosstrack_error, double lat
 	float bearing_diff = wrap_pi(bearing_track - bearing_end);
 
 	// Return past_end = true if past end point of line
-	if (bearing_diff > M_PI_2_F || bearing_diff < -M_PI_2_F) {
+	if (bearing_diff > kHalfPiF || bearing_diff < -kHalfPiF) {
 		crosstrack_error.past_end = true;
 		return_value = 0;
 		return return_value;
@@ -248,10 +254,10 @@ int get_distance_to_line(struct crosstrack_error_s &crosstrack_error, double lat
 	crosstrack_error.distance = (dist_to_end) * sinf(bearing_diff);
 
 	if (sinf(bearing_diff) >= 0) {
-		crosstrack_error.bearing = wrap_pi(bearing_track - M_PI_2_F);
+		crosstrack_error.bearing = wrap_pi(bearing_track - kHalfPiF);
 
 	} else {
-		crosstrack_error.bearing = wrap_pi(bearing_track + M_PI_2_F);
+		crosstrack_error.bearing = wrap_pi(bearing_track + kHalfPiF);
 	}
 
 	return_value = 0;
@@ -287,13 +293,13 @@ int get_distance_to_arc(struct crosstrack_error_s *crosstrack_error, double lat_
 		bearing_sector_start = arc_start_bearing;
 		bearing_sector_end = arc_start_bearing + arc_sweep;
 
-		if (bearing_sector_end > 2.0f * M_PI_F) { bearing_sector_end -= (2 * M_PI_F); }
+		if (bearing_sector_end > 2.0f * kPiF) { bearing_sector_end -= (2 * kPiF); }
 
 	} else {
 		bearing_sector_end = arc_start_bearing;
 		bearing_sector_start = arc_start_bearing - arc_sweep;
 
-		if (bearing_sector_start < 0.0f) { bearing_sector_start += (2 * M_PI_F); }
+		if (bearing_sector_start < 0.0f) { bearing_sector_start += (2 * kPiF); }
 	}
 
 	bool in_sector = false;
@@ -319,7 +325,7 @@ int get_distance_to_arc(struct crosstrack_error_s *crosstrack_error, double lat_
 
 		if (dist_to_center <= radius) {
 			crosstrack_error->distance = radius - dist_to_center;
-			crosstrack_error->bearing = bearing_now + M_PI_F;
+			crosstrack_error->bearing = bearing_now + kPiF;
 
 		} else {
 			crosstrack_error->distance = dist_to_center - radius;

@@ -52,8 +52,20 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#if defined(__has_include) && __has_include(<lib/mathlib/mathlib.h>)
 #include <lib/mathlib/mathlib.h>
+#elif defined(__has_include) && __has_include(<mathlib/mathlib.h>)
+#include <mathlib/mathlib.h>
+#else
+// In the extracted PX4_mathlib repository this header is at the repository root.
+#include <mathlib.h>
+#endif
+
+#if defined(__has_include) && __has_include(<lib/matrix/matrix/math.hpp>)
 #include <lib/matrix/matrix/math.hpp>
+#else
+#include <matrix/math.hpp>
+#endif
 
 /** @brief Standard gravity acceleration [m/s^2] */
 static constexpr float CONSTANTS_ONE_G = 9.80665f;						
