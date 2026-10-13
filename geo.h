@@ -61,10 +61,10 @@
 #include <mathlib.h>
 #endif
 
-#if defined(__has_include) && __has_include(<lib/matrix/matrix/math.hpp>)
-#include <lib/matrix/matrix/math.hpp>
+#if defined(__has_include) && __has_include(<lib/matrix/src/math.hpp>)
+#include <lib/matrix/src/math.hpp>
 #else
-#include <matrix/math.hpp>
+#include <src/math.hpp>
 #endif
 
 /** @brief Standard gravity acceleration [m/s^2] */

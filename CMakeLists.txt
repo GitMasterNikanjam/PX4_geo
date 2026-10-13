@@ -13,7 +13,7 @@ if(NOT EXISTS "${PX4_GEO_MATHLIB_DIR}/mathlib.h")
 		"Set PX4_GEO_MATHLIB_DIR to the extracted library path.")
 endif()
 
-if(NOT EXISTS "${PX4_GEO_MATRIX_DIR}/matrix/math.hpp")
+if(NOT EXISTS "${PX4_GEO_MATRIX_DIR}/src/math.hpp")
 	message(FATAL_ERROR
 		"PX4_matrix was not found at '${PX4_GEO_MATRIX_DIR}'. "
 		"Set PX4_GEO_MATRIX_DIR to the extracted library path.")
